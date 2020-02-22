@@ -1529,7 +1529,7 @@ void GDClass::cmd32(uint32_t b) {
 void GDClass::finish(void) {
   GDTR.finish();
 }
-#if defined(ARDUINO_ARCH_STM32)
+#if defined(ARDUINO_ARCH_STM32) ||  defined(ARDUINO_AM_AP3_SFE_BB_ARTEMIS_ATP)
 void GDClass::get_accel(int &x, int &y, int &z) {
   x = 0;
   y = 0;

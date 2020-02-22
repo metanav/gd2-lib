@@ -32,6 +32,8 @@
 
 #if defined(ESP8266)
 #define SD_PIN        D9    // pin used for the microSD enable signal
+#elif defined(ARDUINO_AM_AP3_SFE_BB_ARTEMIS_ATP)
+#define SD_PIN        A12
 #elif defined(ARDUINO_ARCH_STM32)
 #define SD_PIN        PB1
 #else
@@ -59,6 +61,8 @@
 #ifndef DEFAULT_CS
 #if defined(ESP8266)
 #define DEFAULT_CS D8
+#elif defined(ARDUINO_AM_AP3_SFE_BB_ARTEMIS_ATP)
+#define DEFAULT_CS A32
 #elif defined(ARDUINO_ARCH_STM32)
 #define DEFAULT_CS PB0
 #elif (BOARD == BOARD_SUNFLOWER)
@@ -260,7 +264,7 @@ class sdcard {
     pin = p;
 
     pinMode(pin, OUTPUT);
-#if !defined(__DUE__) && !defined(TEENSYDUINO) && !defined(ARDUINO_ARCH_STM32L4)
+#if !defined(__DUE__) && !defined(TEENSYDUINO) && !defined(ARDUINO_ARCH_STM32L4) && !defined(ARDUINO_AM_AP3_SFE_BB_ARTEMIS_ATP)
     SPI.setClockDivider(SPI_CLOCK_DIV64);
 #endif
     desel();
@@ -336,7 +340,7 @@ class sdcard {
     for (;;);
 #endif
 
-#if !defined(__DUE__) && !defined(ESP8266) && !defined(ESP32) && !defined(ARDUINO_ARCH_STM32L4) && !defined(ARDUINO_ARCH_STM32)
+#if !defined(__DUE__) && !defined(ESP8266) && !defined(ESP32) && !defined(ARDUINO_ARCH_STM32L4) && !defined(ARDUINO_ARCH_STM32) && !defined(ARDUINO_AM_AP3_SFE_BB_ARTEMIS_ATP)
     SPI.setClockDivider(SPI_CLOCK_DIV2);
     SPSR = (1 << SPI2X);
 #endif

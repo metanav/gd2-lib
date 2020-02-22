@@ -1,6 +1,8 @@
 #ifndef CS
 #if defined(ESP8266)
 #define CS D8
+#elif defined(ARDUINO_AM_AP3_SFE_BB_ARTEMIS_ATP)
+#define CS A32
 #elif  defined(ESP32)
 #define CS 12
 #elif defined(ARDUINO_ARCH_STM32)
@@ -41,7 +43,7 @@ public:
 #if defined(TEENSYDUINO) || defined(ARDUINO_ARCH_STM32L4) || defined(ARDUINO_ARCH_STM32)
     SPI.beginTransaction(SPISettings(16000000, MSBFIRST, SPI_MODE0));
 #else
-#if !defined(__DUE__) && !defined(ESP8266) && !defined(ESP32) && !defined(ARDUINO_ARCH_STM32)
+#if !defined(__DUE__) && !defined(ESP8266) && !defined(ESP32) && !defined(ARDUINO_ARCH_STM32) && !defined(ARDUINO_AM_AP3_SFE_BB_ARTEMIS_ATP)
     SPI.setClockDivider(SPI_CLOCK_DIV2);
     SPSR = (1 << SPI2X);
 #endif
@@ -270,7 +272,7 @@ public:
       *dst++ = SPI.transfer(0);
     stream();
   }
-#if defined(ARDUINO) && !defined(__DUE__) && !defined(ESP8266) && !defined(ESP32) && !defined(ARDUINO_ARCH_STM32L4) && !defined(ARDUINO_ARCH_STM32)
+#if defined(ARDUINO) && !defined(__DUE__) && !defined(ESP8266) && !defined(ESP32) && !defined(ARDUINO_ARCH_STM32L4) && !defined(ARDUINO_ARCH_STM32) && !defined(ARDUINO_AM_AP3_SFE_BB_ARTEMIS_ATP)
   void wr_n(uint32_t addr, byte *src, uint16_t n)
   {
     __end(); // stop streaming
